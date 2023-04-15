@@ -28,14 +28,14 @@ const Login = () => {
         <h2 className="fw-bold mb-2 text-center">Sign in</h2>
         <p className="text-white-50 mb-3">Please enter your login and password!</p>
         <label>Email</label>
-        <MDBInput wrapperClass='mb-4 w-100' id='formControlLg' type='email' size="lg"/>
+        <MDBInput wrapperClass='mb-4 w-100' id='formControlLg' type='email' size="lg" required/>
         <label>Password</label>
-        <MDBInput wrapperClass='mb-2 w-100' id='formControlLg' type='password' size="lg"/>
+        <MDBInput wrapperClass='mb-2 w-100' id='formControlLg' type='password' size="lg" required/>
         <Link>Forget Password</Link>
         <br/>
-        <MDBBtn size='lg'>
+        <button className='btn btn-info' type='submit' size='lg'>
           Login
-        </MDBBtn>
+        </button>
         <p>Don't have an account? <Link to='/register'>Sign Up</Link></p>
 
         <hr className="my-2" />
