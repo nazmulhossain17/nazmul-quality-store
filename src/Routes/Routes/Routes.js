@@ -5,6 +5,8 @@ import About from '../../Pages/Home/About/About';
 import Contact from "../../Pages/Home/Contact/Contact";
 import Policy from "../../Pages/Home/Policy/Policy";
 import Pagenotfound from "../../Pages/Home/Pagenotfound/Pagenotfound"
+import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
             {
                 path: '/policy',
                 element: <Policy></Policy>
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>
             }
         ]
     }
