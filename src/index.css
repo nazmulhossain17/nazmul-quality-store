@@ -8,3 +8,19 @@
 /* 
 font-family: 'Quicksand', sans-serif;
 font-family: 'Titillium Web', sans-serif; */
+
+.nv{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    line-height: 26px;
+    text-transform: uppercase;
+    background-color: rgb(175, 185, 162);;
+}
+
+.sv{
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.active{
+    border-bottom: 1px solid red;
+}

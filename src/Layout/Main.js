@@ -9,6 +9,10 @@ const Main = () => {
         <div>
             <Header/> 
             <Outlet/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <Footer/>
         </div>
     );
