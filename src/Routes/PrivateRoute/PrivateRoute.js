@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/auth'
 import { Outlet } from 'react-router-dom'
 import axios from 'axios'
+import Spinner from '../../Pages/Spinner/Spinner'
 
 
 export default function PrivateRoute() {
@@ -22,5 +23,5 @@ export default function PrivateRoute() {
         if(auth?.token) authCheck()
   },[auth?.token])
 
-  return ok ? <Outlet/> : 'spinner'
+  return ok ? <Outlet/> : <Spinner/>
 }
