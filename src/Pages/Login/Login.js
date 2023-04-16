@@ -1,62 +1,72 @@
-import React from 'react';
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBCard,
-    MDBCardBody,
-    MDBCheckbox,
-    MDBRow,
-    MDBCol,
-    MDBIcon,
-    MDBInput
-  }
-  from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../context/auth';
 
 
 const Login = () => {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+    const [auth, setAuth] = useAuth();
+    const handleSubmit = async(e) =>{
+      e.preventDefault()
+      try{
+        const res = await axios.post('/api/v1/auth/login',{email, password})
+        if(res.data.success){
+          toast.success(res.data.message)
+          setAuth({
+            ...auth,
+            user: res.data.user,
+            token:res.data.token,
+          })
+          localStorage.setItem('auth', JSON.stringify(res.data))
+          navigate('/')
+        }
+        else{
+          toast.success(res.data.message)
+        }
+      } catch(error){
+        console.log(error)
+        toast.error('Something went wrong')
+      }
+    }
     return (
        <>
-       <MDBContainer fluid>
-
-<MDBRow className='d-flex justify-content-center align-items-center h-100'>
-  <MDBCol col='12'>
-
-    <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-      <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-
-        <h2 className="fw-bold mb-2 text-center">Sign in</h2>
-        <p className="text-white-50 mb-3">Please enter your login and password!</p>
-        <label>Email</label>
-        <MDBInput wrapperClass='mb-4 w-100' id='formControlLg' type='email' size="lg" required/>
-        <label>Password</label>
-        <MDBInput wrapperClass='mb-2 w-100' id='formControlLg' type='password' size="lg" required/>
-        <Link>Forget Password</Link>
-        <br/>
-        <button className='btn btn-info' type='submit' size='lg'>
-          Login
+       <div className="form-container" style={{ minHeight: "90vh" }}>
+      <form onSubmit={handleSubmit}>
+        <h4 className="title">Sign In</h4>
+        <div className="mb-3">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control"
+            id="exampleInputEmail1"
+            placeholder="Enter Your Email "
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Enter Your Password"
+            required
+          />
+        </div>
+       
+        <button type="submit" className="btn btn-primary">
+          Sign In
         </button>
-        <p>Don't have an account? <Link to='/register'>Sign Up</Link></p>
-
-        <hr className="my-2" />
-
-        <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-          <MDBIcon fab icon="google" className="mx-2"/>
-          Sign in with google
-        </MDBBtn>
-
-        <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-          <MDBIcon fab icon="facebook-f" className="mx-2"/>
-          Sign in with facebook
-        </MDBBtn>
-
-      </MDBCardBody>
-    </MDBCard>
-
-  </MDBCol>
-</MDBRow>
-
-</MDBContainer>
+        <p>Don't have an account? <Link to='/register'>Sign up</Link></p>
+      </form>
+    </div>
        </>
     );
 };

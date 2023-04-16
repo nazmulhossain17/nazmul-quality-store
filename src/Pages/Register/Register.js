@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async(e) =>{
       e.preventDefault()
       try{
-        const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/register`,{name, email, password, phone, address})
+        const res = await axios.post('/api/v1/auth/register',{name, email, password, phone, address})
         if(res.data.success){
           toast.success(res.data.message)
           navigate('/login')
@@ -28,7 +28,7 @@ const Register = () => {
         toast.error('Something went wrong')
       }
   }
-  console.log(process.env.REACT_APP_API)
+  // console.log(process.env.REACT_APP_API)
 
     return (
       <div className="form-container" style={{ minHeight: "90vh" }}>
@@ -94,7 +94,7 @@ const Register = () => {
         <button type="submit" className="btn btn-primary">
           REGISTER
         </button>
-        <p>Already have an account? <Link to='/login'>Sign up</Link></p>
+        <p>Already have an account? <Link to='/login'>Sign In</Link></p>
       </form>
     </div>
     );
