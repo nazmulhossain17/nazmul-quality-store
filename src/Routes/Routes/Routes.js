@@ -56,23 +56,27 @@ const router = createBrowserRouter([
                 element: <PrivateRoute></PrivateRoute>,
                 children: [
                     {
-                        path: '/dashboard/user',
+                        path: 'user',
                         element: <Dashboard></Dashboard>
-                    }
+                    },
                 ]
             },
             {
-                path: '/dashboard',
-                element: <AdminRoute></AdminRoute>,
+                path: '/dashboard/admin',
+                element: <AdminRoute><Dashboard></Dashboard></AdminRoute>,
                 children: [
                     {
                         path: 'admin',
                         element: <AdminDashboard></AdminDashboard>
-                    }
+                    },
                 ]
-            }
+            },
+          
+            
         ]
     }
 ]);
+
+
 
 export default router;
