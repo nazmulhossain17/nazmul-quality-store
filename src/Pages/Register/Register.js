@@ -5,30 +5,37 @@ import { toast } from 'react-toastify';
 import axios from 'axios'
 
 const Register = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [phone, setPhone] = useState('')
-  const [address, setAddress] = useState('')
-  const navigate = useNavigate()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async(e) =>{
-      e.preventDefault()
-      try{
-        const res = await axios.post('/api/v1/auth/register',{name, email, password, phone, address})
-        if(res.data.success){
-          toast.success(res.data.message)
-          navigate('/login')
-        }
-        else{
-          toast.success(res.data.message)
-        }
-      } catch(error){
-        console.log(error)
-        toast.error('Something went wrong')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/api/v1/auth/register", {
+        name,
+        email,
+        password,
+        phone,
+        address,
+        answer,
+      });
+      if (res && res.data.success) {
+        toast.success(res.data && res.data.message);
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
       }
-  }
-  // console.log(process.env.REACT_APP_API)
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
 
     return (
       <div className="form-container" style={{ minHeight: "90vh" }}>
@@ -80,16 +87,27 @@ const Register = () => {
           />
         </div>
         <div className="mb-3">
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="form-control"
-            id="exampleInputEmail1"
-            placeholder="Enter Your Address"
-            required
-          />
-        </div>
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter Your Address"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="What is Your Favorite sports"
+              required
+            />
+          </div>
        
         <button type="submit" className="btn btn-primary">
           REGISTER

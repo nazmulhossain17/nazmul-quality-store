@@ -8,6 +8,10 @@ import Pagenotfound from "../../Pages/Home/Pagenotfound/Pagenotfound"
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
 import Dashboard from "../../Pages/user/Dashboard";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ForgetPassword from "../../Pages/auth/ForgetPassword/ForgetPassword";
+import AdminDashboard from "../../Pages/Admin/AdminDashboard";
+import AdminRoute from "../AdminRoute/AdminRoute";
 
 
 const router = createBrowserRouter([
@@ -44,8 +48,28 @@ const router = createBrowserRouter([
                 element: <Register></Register>
             },
             {
+                path: '/forget-password',
+                element: <ForgetPassword></ForgetPassword>
+            },
+            {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <PrivateRoute></PrivateRoute>,
+                children: [
+                    {
+                        path: '/dashboard/user',
+                        element: <Dashboard></Dashboard>
+                    }
+                ]
+            },
+            {
+                path: '/dashboard',
+                element: <AdminRoute></AdminRoute>,
+                children: [
+                    {
+                        path: 'admin',
+                        element: <AdminDashboard></AdminDashboard>
+                    }
+                ]
             }
         ]
     }
